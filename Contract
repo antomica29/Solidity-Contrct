@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract UniqueNumberToken {
+    mapping(address => uint256) public claimedNumbers;
+    uint256 public constant maxNumber = 10000000;
+    uint256 public nextAvailableNumber = 1;
+
+    string public constant name = "UniqueNumberToken";
+    string public constant symbol = "UNIQ";
+    uint8 public constant decimals = 18;
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    constructor() {}
+
+    function claimNumber() external {
+        require(claimedNumbers[msg.sender] == 0, "You have already claimed a number");
+        require(nextAvailableNumber <= maxNumber, "All numbers have been claimed");
+        
+        claimedNumbers[msg.sender] = nextAvailableNumber;
+        emit Transfer(address(0), msg.sender, nextAvailableNumber);
+        nextAvailableNumber++;
+    }
+
+    function balanceOf(address account) external view returns (uint256) {
+        return claimedNumbers[account];
+    }
+}
