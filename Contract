@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract UniqueNumberToken {
     mapping(address => uint256) public claimedNumbers;
-    uint256 public constant maxNumber = 10000000;
+    uint256 public constant maxNumber = 10000;
     uint256 public nextAvailableNumber = 1;
 
     string public constant name = "UniqueNumberToken";
